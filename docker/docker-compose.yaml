@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  mock-coupon-api:
+    build:
+      dockerfile: ${APP_ROOT}/docker/Dockerfile
+      context: ${APP_ROOT}
+    ports:
+      - "8080:8080"
+    environment:
+      UPDATE_DELAY_SECONDS: "15"
+    networks:
+      - mock_network
+
+
+networks:
+  mock_network:
+    name: docker_mock_network
+
