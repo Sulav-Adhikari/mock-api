@@ -2,18 +2,41 @@ version: "3"
 
 services:
   mock-coupon-api:
+    container_name:  mock-coupon-api
     build:
       dockerfile: ${APP_ROOT}/docker/Dockerfile
       context: ${APP_ROOT}
     ports:
       - "8080:8080"
     environment:
-      UPDATE_DELAY_SECONDS: "15"
+      UPDATE_DELAY_SECONDS: "5"
+    networks:
+      - mock_network
+  
+  prometheus:
+    image: ubuntu/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ../prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
       - mock_network
 
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - mock_network
+    
+  loki:
+    container_name: loki
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    networks:
+      - mock_network
 
 networks:
   mock_network:
-    name: docker_mock_network
-
+    name: mock_network

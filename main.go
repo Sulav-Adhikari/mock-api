@@ -9,6 +9,8 @@ import (
 	"time"
 
 	"github.com/jaswdr/faker"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+
 )
 
 var Faker = faker.New()
@@ -84,7 +86,11 @@ func main() {
 	}
 
 	go updateOffersLoop()
+
 	server.HandleFunc("/", httpRequestHandler)
+	server.Handle("/metrics", promhttp.Handler())
+
+	// http.Handle("/metrics", promhttp.Handler())
 
 	http.ListenAndServe(":8080", server)
 

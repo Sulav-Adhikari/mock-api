@@ -11,11 +11,11 @@ This repository contains a mock api that we may use to experiment.
 
 1. Clone the repository.
 
-2. Run the server using `make docker-compose/up`. Ensure docker engine is 
+2. Run the server using `make docker compose/up`. Ensure docker engine is 
 running before running this command.
 
 ```bash
-make docker-compose/up
+make docker compose/up
 ```
 
 ## API 
